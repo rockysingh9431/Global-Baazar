@@ -1,0 +1,66 @@
+{
+  "cartItems": [
+    {
+      "_id": "6607adf190606be43686a860",
+      "user": "6607adf190606be43686a85a",
+      "name": "Smartphone X",
+      "image": "/images/phone.jpg",
+      "brand": "XYZ",
+      "category": "Electronics",
+      "description": "Powerful smartphone with advanced features. High-resolution display, dual-camera setup, and long-lasting battery life.",
+      "numReviews": 8,
+      "rating": 4.2,
+      "price": 499.99,
+      "countInStock": 5,
+      "__v": 0,
+      "createdAt": "2024-03-30T06:15:13.381Z",
+      "updatedAt": "2024-03-30T06:15:13.381Z",
+      "reviews": []
+    },
+    {
+      "_id": "6607adf190606be43686a861",
+      "user": "6607adf190606be43686a85a",
+      "name": "Laptop Pro",
+      "image": "/images/alexa.jpg",
+      "brand": "TechGear",
+      "category": "Computers",
+      "description": "High-performance laptop for work and entertainment. Stunning display, powerful processor, and long battery life.",
+      "numReviews": 15,
+      "rating": 4.7,
+      "price": 1299.99,
+      "countInStock": 3,
+      "__v": 0,
+      "createdAt": "2024-03-30T06:15:13.381Z",
+      "updatedAt": "2024-03-30T06:15:13.381Z",
+      "reviews": []
+    },
+    {
+      "_id": "6607adf190606be43686a865",
+      "user": "6607adf190606be43686a85a",
+      "name": "Digital Camera DSLR",
+      "image": "/images/camera.jpg",
+      "brand": "PhotoPro",
+      "category": "Cameras",
+      "description": "Capture stunning photos and videos with professional-grade features. Interchangeable lenses and advanced shooting modes.",
+      "numReviews": 22,
+      "rating": 4.9,
+      "price": 1299.99,
+      "countInStock": 4,
+      "__v": 0,
+      "createdAt": "2024-03-30T06:15:13.382Z",
+      "updatedAt": "2024-03-30T06:15:13.382Z",
+      "reviews": []
+    }
+  ],
+  "shippingAddress": {
+    "address": "Vill - Chhajwa, Post - Balia , Hussainganj, P.S - Andar",
+    "city": "Siwan",
+    "postalCode": "941237",
+    "country": "India"
+  },
+  "paymentMethod": "paypal",
+  "itemsPrice": "NaN",
+  "shippingPrice": "10.00",
+  "taxPrice": "NaN",
+  "totalPrice": "NaN"
+}
