@@ -1,6 +1,7 @@
-import Navbar from "./components/Navbar";
+import Navbar from "./navbar/Navbar";
 import { Provider } from "react-redux";
 import store from "./slice_store/store";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import CartScreen from "./screens/CartScreen";
@@ -10,6 +11,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SignInScreen from "./screens/SignInScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import OrderScreen from "./screens/OrderScreen";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +43,14 @@ const router = createBrowserRouter([
         path: "/register",
         element: <RegisterScreen />,
       },
+      {
+        path: "/profile",
+        element: <ProfileScreen />,
+      },
+      {
+        path: "/order/:id",
+        element: <OrderScreen />,
+      },
     ],
   },
 ]);
@@ -48,7 +59,9 @@ const App = () => {
   return (
     <HelmetProvider>
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <PayPalScriptProvider deferLoading={true}>
+          <RouterProvider router={router} />
+        </PayPalScriptProvider>
       </Provider>
       <ToastContainer />
     </HelmetProvider>

@@ -19,8 +19,8 @@ const CartScreen = () => {
     navigate("/login?redirect=/shipping");
   };
   return (
-    <div className="mt-6">
-      <div className="flex justify-center py-20 bg-red-50">
+    <div className="mt-3 bg-red-50">
+      <div className="flex justify-center py-16">
         {cartItems.length === 0 ? (
           <Message>
             Your Cart Is Empty <Link to="/">Go Back</Link>

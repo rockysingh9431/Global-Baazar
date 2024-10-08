@@ -24,7 +24,7 @@ const ProductScreen = () => {
   };
 
   return (
-    <div className="mt-10 p-20 px-40">
+    <div className="mt-3 p-20 px-40">
       {isLoading ? (
         <Loader />
       ) : error ? (

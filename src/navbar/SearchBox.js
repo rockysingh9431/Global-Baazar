@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 const SearchBox = () => {
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
-  console.log(searchText);
   const submitHandler = (e) => {
     e.preventDefault();
     if (searchText.trim()) {

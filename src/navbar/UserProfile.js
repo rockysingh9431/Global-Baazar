@@ -19,11 +19,16 @@ const UserProfile = () => {
   const LogoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
-      dispatch(logout());
       navigate("/signin");
+      dispatch(logout());
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const profileHandler = () => {
+    navigate("/profile");
+    setProfileMenuVisibility(false);
   };
   const toggleProfileMenu = () => {
     console.log("profile Toggle");
@@ -84,10 +89,12 @@ const UserProfile = () => {
                 id="profileMenu"
                 className="fixed top-16 p-1 right-18 w-36 rounded-md shadow-lg shadow-gray-500 bg-slate-200"
               >
-                <Link to="/profile">
-                  {" "}
-                  <div className="text-black px-3">profile</div>
-                </Link>
+                <div
+                  className="text-black px-3 cursor-pointer"
+                  onClick={profileHandler}
+                >
+                  profile
+                </div>
                 <hr className=" bg-gray-400 h-0.5 my-1" />
                 <div
                   className="text-black px-3 cursor-pointer"

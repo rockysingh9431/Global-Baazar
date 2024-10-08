@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 const Reviews = () => {
   const { id: productId } = useParams();
-  console.log(productId);
   const { userInfo } = useSelector((state) => state.auth);
   const [createReview, { isLoading: loadingProductReview }] =
     useCreateReviewMutation();
@@ -19,7 +18,6 @@ const Reviews = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const submitHandler = async (e) => {
-    console.log("Submit handler");
     e.preventDefault();
     try {
       await createReview({
@@ -27,20 +25,18 @@ const Reviews = () => {
         rating,
         comment,
       }).unwrap();
-      console.log(rating);
       refetch();
       toast.success("Review added successfully");
       setRating(0);
       setComment("");
     } catch (error) {
-      console.log(error);
       toast.error(error?.data?.message || error.error);
     }
   };
   return (
     <div
       id="reviews-section"
-      className="mt-10 border border-orange-800 shadow-lg rounded-md shadow-orange-300 p-4"
+      className="mt-10 border border-orange-800 shadow-lg rounded-md shadow-orange-100 p-4"
     >
       <h2 className=" font-bold text-3xl text-emerald-900  text-center">
         Customer Reviews

@@ -7,13 +7,12 @@ import Loader from "../components/Loader";
 
 const Homescreen = () => {
   const { keyword } = useParams();
-  console.log(keyword);
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
   });
   return (
-    <div className="mt-16 px-20 bg-orange-50">
-      <h1 className="py-6 text-center text-5xl font-semibold text-slate-900">
+    <div className="mt-6 py-16 px-20 bg-gray-400">
+      <h1 className="text-center text-5xl font-semibold text-slate-900">
         Latest Products
       </h1>
       {keyword ? (
@@ -34,7 +33,7 @@ const Homescreen = () => {
               return (
                 <div
                   key={product._id}
-                  className="rounded-md bg-white mb-10 shadow-lg shadow-gray-400 m-auto p-2 h-[330px] w-[18vw] xl:min-w-56 min-w-72"
+                  className="rounded-md bg-white mb-10  shadow-gray-400 m-auto p-2 h-[330px] w-[18vw] xl:min-w-56 min-w-72"
                 >
                   <Product key={product._id} product={product} />
                 </div>

@@ -23,8 +23,8 @@ const Header = () => {
   return (
     <>
       <header
-        className={`bg-blue-950 p-3 shadow-orange-100 shadow-lg h-20 my-auto fixed top-0 right-0 w-screen transition-all duration-0 ease-in-out${
-          isNavbarOpen && "max-h-96"
+        className={`bg-blue-950 p-1 px-3 shadow-orange-100 shadow-sm  fixed top-0 right-0 w-screen duration-0 transition-all ease-in-out${
+          isNavbarOpen ? "max-h-96" : "min-h-16"
         }`}
       >
         <nav className="text-slate-100 flex justify-between p-1 items-center">
@@ -93,7 +93,7 @@ const Header = () => {
                 <div className="relative flex items-end text-orange-400">
                   <CiShoppingCart className="text-5xl" />
                   <span className="mb-1 font-sans font-bold">Cart</span>
-                  {cartItems.length > 0 && (
+                  {
                     <span className="absolute transform translate-x-2.5 -translate-y-4 rounded-full w-8 h-4 bg-gray-200-500 flex items-center justify-center text-md text-orange-200 font-bold">
                       {cartItems.reduce(
                         (acc, curr) =>
@@ -101,7 +101,7 @@ const Header = () => {
                         0
                       )}
                     </span>
-                  )}
+                  }
                 </div>
               </Link>
             </div>
