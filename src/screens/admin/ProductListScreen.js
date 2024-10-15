@@ -6,7 +6,6 @@ import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import {
   useGetProductsQuery,
-  useCreateProductMutation,
   useDeleteProductMutation,
 } from "../../slice_store/productApiSlice";
 
