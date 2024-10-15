@@ -1,11 +1,9 @@
-import { LinkContainer } from "react-router-bootstrap";
-import { Table, Button, Row, Col } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import Paginate from "../../components/Paginate";
 import {
   useGetProductsQuery,
   useCreateProductMutation,
@@ -17,8 +15,8 @@ const ProductListScreen = () => {
   const { data, refetch, isLoading, error } = useGetProductsQuery({
     pageNumber,
   });
-  const [createProduct, { isLoading: loadingCreate }] =
-    useCreateProductMutation();
+  const navigate = useNavigate();
+
   const [deleteProduct, { isLoading: loadingDelete }] =
     useDeleteProductMutation();
   const deleteHandler = async (id) => {
@@ -35,7 +33,7 @@ const ProductListScreen = () => {
   const createProductHandler = async () => {
     if (window.confirm("Are you sure you want to new product?")) {
       try {
-        await createProduct();
+        navigate("/products/create");
         refetch();
       } catch (error) {
         toast.error(error?.data?.message || error?.message);
@@ -44,28 +42,31 @@ const ProductListScreen = () => {
   };
   return (
     <>
-      <Row className="align-items-center">
-        <Col>
-          <h1>Products</h1>
-        </Col>
-        <Col className="text-end">
-          <Button className="btn-sm m-3" onClick={createProductHandler}>
-            <FaEdit /> Create Product
-          </Button>
-        </Col>
-      </Row>
-      {loadingCreate && <Loader />}
+      <div className="pt-24 w-full">
+        <div id="head" className="flex mx-auto w-11/12">
+          <h1 className=" text-teal-950 font-bold text-4xl mb-5">Products</h1>
+
+          <div className="flex justify-end w-full pb-3">
+            <button
+              className="text-white bg-slate-700 flex rounded-md p-2 items-center"
+              onClick={createProductHandler}
+            >
+              <FaEdit /> Create Product
+            </button>
+          </div>
+        </div>
+      </div>
       {loadingDelete && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error.message}</Message>
       ) : (
-        <>
-          <Table striped hover responsive className="table-sm">
+        <div className="flex justify-center w-full">
+          <table className="table-auto border-collapse  text-slate-600 w-11/12 text-center">
             <thead>
-              <tr>
-                <th>ID</th>
+              <tr className="border-b border-slate-600 text-sm md:text-lg  ">
+                <th className="p-2">Product No.</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
@@ -73,37 +74,41 @@ const ProductListScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {data.products.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
+              {data.products.map((product, index) => (
+                <tr
+                  key={product._id}
+                  className={`${
+                    !(index % 2) ? "bg-yellow-50" : ""
+                  } border-b border-slate-600 text-xs md:text-sm text-teal-700`}
+                >
+                  <td className="p-2">{index + 1}</td>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                      <Button variant="light" className="btn-sm mx-2">
+                    <Link to={`/admin/product/${product._id}/edit`}>
+                      <button variant="light" className="btn-sm mx-2">
                         <FaEdit />
-                      </Button>
-                    </LinkContainer>
+                      </button>
+                    </Link>
                   </td>
                   <td>
-                    <Button
+                    <button
                       variant="light"
                       className="btn-sm mx-2"
                       onClick={() => {
                         deleteHandler(product._id);
                       }}
                     >
-                      <FaTrash style={{ color: "red" }} />
-                    </Button>
+                      <FaTrash style={{ divor: "red" }} />
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
-          </Table>
-          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
-        </>
+          </table>
+        </div>
       )}
     </>
   );

@@ -89,6 +89,7 @@ const SignInScreen = () => {
               >
                 Sign In
               </button>
+              {isLoading && <Loader />}
             </div>
           </form>
         </div>

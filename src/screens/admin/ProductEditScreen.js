@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import FormContainer from "../../components/FormContainer";
 import {
   useUpdateProductMutation,
   useGetProductDetailsQuery,
@@ -78,12 +76,11 @@ const ProductEditScreen = () => {
     }
   };
   return (
-    <>
-      <Link to="/admin/productlist" className="btn btn-light my-3">
-        Go Back
-      </Link>
-      <FormContainer>
-        <h1>Edit Product</h1>
+    <div className="pt-24 px-24">
+      <div className="">
+        <h1 className="text-center text-teal-900 font-bold text-4xl">
+          Edit Product
+        </h1>
         {loadingUpdateProduct && <Loader />}
         {isLoading ? (
           <Loader />
@@ -92,84 +89,96 @@ const ProductEditScreen = () => {
             {error.data.message || error.error}
           </Message>
         ) : (
-          <Form onSubmit={submitHandler}>
-            <Form.Group className="my-2" controlId="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                value={name}
-                placeholder="Enter your name"
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="my-2" controlId="price">
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                type="number"
-                value={price}
-                placeholder="Enter your price"
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId="image" className="my-2">
-              <Form.Label>Image</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="upload Image"
-                value={image}
-                onChange={(e) => setImage}
-              ></Form.Control>
-              <Form.Control
-                type="file"
-                label="choose file"
-                onChange={uploadFileHandler}
-              ></Form.Control>
-              {loadingImageUpdate && <Loader />}
-            </Form.Group>
+          <div className="flex justify-center text-lg text-slate-600">
+            <form onSubmit={submitHandler}>
+              <div className="my-2" id="name">
+                <label className="block">Name</label>
+                <input
+                  type="text"
+                  value={name}
+                  placeholder="Enter your name"
+                  onChange={(e) => setName(e.target.value)}
+                  className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
+                />
+              </div>
+              <div className="my-2" id="price">
+                <label className="block">Price</label>
+                <input
+                  type="number"
+                  value={price}
+                  placeholder="Enter your price"
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
+                />
+              </div>
+              <div id="image" className="my-2">
+                <label className="block">Image</label>
+                <input
+                  type="text"
+                  placeholder="upload Image"
+                  value={image}
+                  onChange={(e) => setImage}
+                  className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
+                ></input>
+                <input
+                  type="file"
+                  label="choose file"
+                  onChange={uploadFileHandler}
+                  className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
+                ></input>
+                {loadingImageUpdate && <Loader />}
+              </div>
 
-            <Form.Group className="my-2" controlId="brand">
-              <Form.Label>Brand</Form.Label>
-              <Form.Control
-                type="text"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="my-2" controlId="countInStock">
-              <Form.Label>Count In Stock</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter a quantity"
-                value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group className="my-2" controlId="category">
-              <Form.Label>Category</Form.Label>
-              <Form.Control
-                type="text"
-                value={category}
-                placeholder="Enter a category"
-                onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Form.Group className="my-2" controlId="description">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={description}
-                placeholder="Enter a description"
-                onChange={(e) => setDescription(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <Button type="submit" variant="primary" className="my-2">
-              Update
-            </Button>
-          </Form>
+              <div className="my-2" id="brand">
+                <label className="block">Brand</label>
+                <input
+                  type="text"
+                  value={brand}
+                  onChange={(e) => setBrand(e.target.value)}
+                  className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
+                />
+              </div>
+              <div className="my-2" id="countInStock">
+                <label className="block">Count In Stock</label>
+                <input
+                  type="text"
+                  placeholder="Enter a quantity"
+                  value={countInStock}
+                  onChange={(e) => setCountInStock(e.target.value)}
+                  className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
+                ></input>
+              </div>
+              <div className="my-2" id="category">
+                <label className="block">Category</label>
+                <input
+                  type="text"
+                  value={category}
+                  placeholder="Enter a category"
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
+                ></input>
+              </div>
+              <div className="my-2" id="description">
+                <label className="block">Description</label>
+                <input
+                  rows={3}
+                  value={description}
+                  placeholder="Enter a description"
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
+                ></input>
+              </div>
+              <button
+                type="submit"
+                className="p-2 bg-slate-700 text-white text-sm px-3 rounded-md"
+              >
+                Update
+              </button>
+            </form>
+          </div>
         )}
-      </FormContainer>
-    </>
+      </div>
+    </div>
   );
 };
 export default ProductEditScreen;

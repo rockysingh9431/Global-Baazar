@@ -16,7 +16,7 @@ const CartScreen = () => {
     dispatch(removeFromCart(id));
   };
   const checkOutHandler = () => {
-    navigate("/login?redirect=/shipping");
+    navigate("/signin?redirect=/shipping");
   };
   return (
     <div className="mt-3 bg-red-50">
@@ -30,22 +30,26 @@ const CartScreen = () => {
             {cartItems.map((item) => (
               <div
                 key={item._id}
-                className="flex justify-between border border-gray-300 rounded-md  bg-white  shadow-lg shadow-gray-300 my-6"
+                className="flex justify-between border border-gray-300 rounded-md  bg-white shadow-lg shadow-gray-300 my-6"
               >
-                <div className="w-2/4">
+                <div className="w-1/2 p-3">
                   <img
                     src={item.image}
                     alt={item.image}
-                    className="rounded-md h-56 w-72"
+                    className="rounded-md h-36 w-52 md:h-56 md:w-72"
                   />
                 </div>
-                <div id="item-info" className="p-4 px-8">
-                  <div className="text-3xl mb-4 font-semibold">
+                <div id="item-info" className="p-4 px-8 w-3/4">
+                  <div className="md:text-3xl mb-4 font-semibold">
                     <Link to={`/product/${item._id}`}>{item.name}</Link>
                   </div>
-                  <div className="text-gray-700 my-6">{item.description}</div>
-                  <div className="flex justify-between w-5/6 text-lg">
-                    <div>Price: ${(item.quantity * item.price).toFixed(2)}</div>
+                  <div className="text-gray-700 my-6 hidden md:block">
+                    {item.description}
+                  </div>
+                  <div className="md:flex justify-between w-full text-md md:text-lg">
+                    <div className="mb-3">
+                      Price: ${(item.quantity * item.price).toFixed(2)}
+                    </div>
                     <div id="cart-info">
                       <select
                         value={item.quantity}

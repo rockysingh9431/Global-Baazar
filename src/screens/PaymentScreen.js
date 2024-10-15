@@ -1,6 +1,4 @@
-import { Form, Button, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import FormContainer from "../components/FormContainer";
 import CheckOutSteps from "../components/CheckOutSteps";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -27,30 +25,39 @@ const PaymentScreen = () => {
   };
 
   return (
-    <FormContainer>
+    <div className="pt-24">
       <CheckOutSteps step1 step2 step3 />
-      <h1>Payment Method</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group>
-          <Form.Label as="legend">Select Method</Form.Label>
-          <Col>
-            <Form.Check
-              type="radio"
-              className="my-2"
-              label="PayPal or Credit Card"
-              id="PayPal"
-              name="paymentMethod"
-              value="PayPal"
-              checked
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check>
-          </Col>
-        </Form.Group>
-        <Button type="submit" className="my-2" variant="primary">
-          Continue
-        </Button>
-      </Form>
-    </FormContainer>
+      <h1 className="text-center text-teal-950 text-4xl mt-6 font-bold">
+        Payment Method
+      </h1>
+      <div className="flex justify-center w-full">
+        <form onSubmit={submitHandler}>
+          <label className="block text-2xl text-teal-900 mt-4 font-semibold">
+            Select Method
+          </label>
+
+          <input
+            type="radio"
+            className="my-2"
+            label="PayPal or Credit Card"
+            id="PayPal"
+            name="paymentMethod"
+            value="PayPal"
+            checked
+            onChange={(e) => setPaymentMethod(e.target.value)}
+          ></input>
+          <span className="font-semibold text-slate-600">
+            Paypal / Credit / Debit Cards
+          </span>
+          <button
+            type="submit"
+            className="block my-2 bg-slate-700 text-white p-2 rounded-md"
+          >
+            Continue
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 export default PaymentScreen;

@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import FormContainer from "../../components/FormContainer";
 import {
   useUpdateUserMutation,
   useGetUserDetailsQuery,
@@ -52,56 +50,60 @@ const UserEditScreen = () => {
     }
   };
   return (
-    <>
-      <Link to="/admin/userlist" className="btn btn-light my-3">
-        Go Back
-      </Link>
-      <FormContainer>
-        <h1>Edit User</h1>
-        {loadingUpdateUser && <Loader />}
-        {isLoading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant="danger">
-            {error.data.message || error.error}
-          </Message>
-        ) : (
-          <Form onSubmit={submitHandler}>
-            <Form.Group className="my-2" controlId="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
+    <div className="pt-24 ">
+      <h1 className="text-teal-900 font-bold text-4xl text-center">
+        Edit User
+      </h1>
+      {loadingUpdateUser && <Loader />}
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <Message success={true}>{error.data.message || error.error}</Message>
+      ) : (
+        <div className="flex justify-center text-lg text-slate-600 w-full mt-5">
+          <form onSubmit={submitHandler} className="w-1/2">
+            <div className="my-2" id="name">
+              <label className="block">Name</label>
+              <input
                 type="text"
                 value={name}
                 placeholder="Enter your name"
                 onChange={(e) => setName(e.target.value)}
+                className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
               />
-            </Form.Group>
+            </div>
 
-            <Form.Group className="my-2" controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
+            <div className="my-2" id="email">
+              <label className="block">Email</label>
+              <input
                 type="email"
                 value={email}
                 placeholder="Enter your email"
                 onChange={(e) => setEmail(e.target.value)}
+                className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 w-full rounded-md p-2"
               />
-            </Form.Group>
-            <Form.Group className="my-2" controlId="isAdmin">
-              <Form.Check
+            </div>
+            <div id="isAdmin" className="flex my-2 items-center">
+              <span>Mark this box if you're the admin :</span>
+              <input
                 type="checkbox"
                 label="is Admin"
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
-              ></Form.Check>{" "}
-            </Form.Group>
+                className="outline-none text-sm border border-slate-300 focus:border-slate-700 text-slate-500 ml-3 rounded-md p-2"
+              ></input>{" "}
+            </div>
 
-            <Button type="submit" variant="primary" className="my-2">
+            <button
+              type="submit"
+              className="my-2 p-2 bg-slate-700 text-white rounded-md"
+            >
               Update
-            </Button>
-          </Form>
-        )}
-      </FormContainer>
-    </>
+            </button>
+          </form>
+        </div>
+      )}
+    </div>
   );
 };
 export default UserEditScreen;

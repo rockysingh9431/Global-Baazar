@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import Message from "../components/Message";
@@ -31,7 +31,7 @@ const OrderScreen = () => {
 
   const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
-  const { userInfo } = useSelector((state) => state.auth);
+  // const { userInfo } = useSelector((state) => state.auth);
   useEffect(() => {
     if (!errorPayPal && !loadingPayPal && paypal.clientId) {
       const loadPayPalScript = async () => {
@@ -200,35 +200,20 @@ const OrderScreen = () => {
               <div>${order.totalPrice}</div>
             </div>
             <Divider color={"bg-slate-300"} />
-            {order.isPaid && (
+            {!order.isPaid && (
               <div className="flex justify-between px-10 py-1">
                 {loadingPay && <Loader />}
                 {isPending ? (
-                  <Loader />
+                  <div>Loading...</div>
                 ) : (
                   <div className="w-full ">
-                    <div className="flex justify-around p-2">
-                      <button
-                        onClick={onApproveTest}
-                        className="bg-slate-900 text-white p-1 rounded-md"
-                      >
-                        Test Pay Order
-                      </button>
-                      {/*delivered status admin*/}
-                      {loadingDeliver && <Loader />}
-                      {userInfo &&
-                        userInfo.isAdmin &&
-                        order.isPaid &&
-                        order.isDelivered && (
-                          <button
-                            type="button"
-                            className="bg-slate-900 text-white p-1 rounded-md"
-                            onClick={deliverOrderHandler}
-                          >
-                            Mark As Delivered
-                          </button>
-                        )}
-                    </div>
+                    <button
+                      onClick={onApproveTest}
+                      className="bg-slate-900 text-white p-2 rounded-md"
+                    >
+                      Test Pay Order
+                    </button>
+
                     <div>
                       <PayPalButtons
                         createOrder={createOrder}
@@ -240,6 +225,20 @@ const OrderScreen = () => {
                 )}
               </div>
             )}
+
+            <div id="delivered-btn" className="flex justify-center ">
+              {/*delivered status admin*/}
+              {loadingDeliver && <Loader />}
+              {!order.isDelivered && (
+                <button
+                  type="button"
+                  className="bg-slate-900 text-white p-2 rounded-md"
+                  onClick={deliverOrderHandler}
+                >
+                  Mark As Delivered
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -3,7 +3,6 @@ import { CgProfile } from "react-icons/cg";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slice_store/usersApiSlice";
 import { logout } from "../slice_store/authSlice";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,21 +13,15 @@ const UserProfile = () => {
   const profileMenuRef = useRef(null);
   const adminMenuRef = useRef(null);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
-  const LogoutHandler = async () => {
+  const logOutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
-      navigate("/signin");
       dispatch(logout());
+      toggleDropDownButton();
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const profileHandler = () => {
-    navigate("/profile");
-    setProfileMenuVisibility(false);
   };
   const toggleProfileMenu = () => {
     console.log("profile Toggle");
@@ -37,16 +30,21 @@ const UserProfile = () => {
   };
   const toggleAdminMenu = () => {
     console.log("admin Toggle");
-    setAdminMenuVisibility(!adminMenuVisibility);
+    setAdminMenuVisibility(true);
     setProfileMenuVisibility(false);
   };
 
+  const toggleDropDownButton = () => {
+    setAdminMenuVisibility(false);
+    setProfileMenuVisibility(false);
+  };
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
         profileMenuRef.current &&
         !profileMenuRef.current.contains(event.target)
       ) {
+        console.log(profileMenuRef.current.contains(event.target));
         setProfileMenuVisibility(false);
       }
 
@@ -54,6 +52,7 @@ const UserProfile = () => {
         adminMenuRef.current &&
         !adminMenuRef.current.contains(event.target)
       ) {
+        console.log(adminMenuRef.current);
         setAdminMenuVisibility(false);
       }
     };
@@ -71,7 +70,7 @@ const UserProfile = () => {
     setProfileMenuVisibility(false);
     setAdminMenuVisibility(false);
   }, [userInfo]);
-
+  console.log(adminMenuVisibility);
   return (
     <div className="w-1/2 flex items-center justify-between p-1">
       <div id="signin" className="md:mr-3">
@@ -89,19 +88,21 @@ const UserProfile = () => {
                 id="profileMenu"
                 className="fixed top-16 p-1 right-18 w-36 rounded-md shadow-lg shadow-gray-500 bg-slate-200"
               >
-                <div
+                <Link
+                  to="/profile"
                   className="text-black px-3 cursor-pointer"
-                  onClick={profileHandler}
+                  onClick={toggleDropDownButton}
                 >
                   profile
-                </div>
+                </Link>
                 <hr className=" bg-gray-400 h-0.5 my-1" />
-                <div
+                <Link
+                  to="/"
                   className="text-black px-3 cursor-pointer"
-                  onClick={LogoutHandler}
+                  onClick={logOutHandler}
                 >
                   Logout
-                </div>
+                </Link>
               </div>
             )}
           </>
@@ -115,7 +116,7 @@ const UserProfile = () => {
         )}
       </div>
 
-      <div id="isAdmin" className="flex items-center">
+      <div id="admin" className="flex items-center">
         {userInfo?.isAdmin ? (
           <div>
             <div
@@ -131,16 +132,16 @@ const UserProfile = () => {
                 id="adminMenu"
                 className="fixed  top-16 p-2 px-3 right-10 w-36 rounded-md shadow-lg shadow-gray-500 bg-slate-200"
               >
-                <Link to="/orders">
+                <Link to="/admin/orders" onClick={toggleDropDownButton}>
                   <div className="text-black px-3">Orders</div>
                 </Link>
                 <hr className=" bg-gray-400 h-0.5 my-1" />
-                <Link to="/products">
+                <Link to="/admin/products" onClick={toggleDropDownButton}>
                   <div className="text-black px-3">Product List</div>
                 </Link>
                 <hr className=" bg-gray-400 h-0.5 my-1" />
 
-                <Link to="/users">
+                <Link to="/admin/users" onClick={toggleDropDownButton}>
                   {" "}
                   <div className="text-black px-3">UserList</div>
                 </Link>

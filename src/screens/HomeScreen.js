@@ -11,7 +11,7 @@ const Homescreen = () => {
     keyword,
   });
   return (
-    <div className="mt-6 py-16 px-20 bg-gray-400">
+    <div className="mt-6 py-16 px-20">
       <h1 className="text-center text-5xl font-semibold text-slate-900">
         Latest Products
       </h1>
